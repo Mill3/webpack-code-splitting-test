@@ -1,19 +1,17 @@
 const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 
 module.exports = {
-  mode: 'development',
+  // mode: 'production',
   watch: true,
   entry: {
     index: './src/index.js',
-    app: './src/app.js',
-    module_a: './src/module-a.js',
-    module_b: './src/module-b.js',
-    quotes: './src/modules/quotes/index.js',
-    sliders: './src/modules/sliders/index.js',
+    style: './src/scss/index.scss',
   },
   output: {
     filename: '[name].bundle.js',
-    chunkFilename: '[name].bundle.js',
+    chunkFilename: '[name].[hash].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   optimization: {
@@ -21,12 +19,18 @@ module.exports = {
       chunks: 'all',
     },
   },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: `[name].css`,
+      chunkFilename: `[name].[hash].css`
+    }),
+  ],
   module: {
     rules: [
       {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
-      },
+        test: /\.(sa|sc|c)ss$/i,
+        use: [MiniCssExtractPlugin.loader, `css-loader`, `sass-loader`]
+      }
     ],
   },
 };
