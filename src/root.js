@@ -2,11 +2,8 @@ import barba from '@barba/core';
 
 const SELECTOR = `[data-module]`
 
-async function initModules(source) {
-  let modules = []
-  source.querySelectorAll(SELECTOR).forEach(el => {
-    modules.push(el.dataset.module)
-  })
+const initModules = (source) => {
+  let modules = [...source.querySelectorAll(SELECTOR)].map(el => el.dataset.module)
 
   modules.forEach(file => {
     // let banner = `/* webpackChunkName: "${file}" */`
