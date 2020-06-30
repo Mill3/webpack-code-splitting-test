@@ -1,9 +1,11 @@
+var compression = require('compression')
 var express = require('express');
 
 var app = express();
 
 app.set('view engine', 'ejs');
 app.use(express.static('dist'))
+app.use(compression())
 
 app.get('/', function(req, res) {
   var locals = {

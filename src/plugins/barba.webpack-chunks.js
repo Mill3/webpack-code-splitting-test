@@ -13,6 +13,7 @@
 const VERSION = `0.0.1`;
 
 const MODULES_SELECTOR = `[data-module]`;
+const UI_SELECTOR = `[data-ui]`;
 
 export class WebpackChunks {
   constructor() {
@@ -22,8 +23,8 @@ export class WebpackChunks {
     this.logger;
 
     this._parser;
-    this._source;
     this._modules = [];
+    this._ui = [];
     this._emitters = [];
   }
 
@@ -43,6 +44,15 @@ export class WebpackChunks {
    * Plugin installation.
    */
   init() {
+    // on initial load
+    const source = document.querySelector(`body`)
+
+    // UI elements are loaded once and not destroyed
+    this._importUI(source, null, true)
+
+    // Modules are loaded on each page change
+    this._importModules(source, null, true);
+
     // DEBUG
     this.barba.hooks.before(() => {
       console.time(`transition-starts`);
@@ -51,6 +61,8 @@ export class WebpackChunks {
     // afterLeave and initial, parse and load modules
     this.barba.hooks.beforeEnter(this._beforeEnter, this);
 
+    this.barba.hooks.after(this._after, this);
+
     // when leaving
     this.barba.hooks.beforeLeave(this._beforeLeave, this);
 
@@ -58,6 +70,7 @@ export class WebpackChunks {
     this.barba.hooks.after(() => {
       console.timeEnd(`transition-starts`);
     });
+
   }
 
 
@@ -87,10 +100,19 @@ export class WebpackChunks {
     });
   }
 
+
+  _after() {
+    Object.keys(this._modules).forEach((m) => {
+      if (typeof this._modules[m].init === `function`) {
+        this._modules[m].init();
+      }
+    });
+  }
+
    /**
    * the module importer, look for data-module entries in DOM source
    */
-  _importModules(source, resolve) {
+  _importModules(source, resolve, autoinit = false) {
     let elements = source.querySelectorAll(MODULES_SELECTOR);
 
     // import each module as a webpack chunk
@@ -121,7 +143,7 @@ export class WebpackChunks {
           // instance.invokeEmitter = this._invokeEmitter.bind(this._invokeEmitter)
 
           // init attached instance
-          if (typeof instance.init === `function`) instance.init();
+          if (autoinit && typeof instance.init === `function`) instance.init();
         })
         .catch((e) => {
           console.error("Error loading module :", e);
@@ -129,7 +151,47 @@ export class WebpackChunks {
     });
 
     // resolve when all modules are imported
-    return resolve()
+    return typeof resolve === `function` ? resolve() : true
+  }
+
+  /**
+   * the module importer, look for data-module entries in DOM source
+   */
+  _importUI(source, resolve, autoinit = true) {
+    // let source = document.querySelector(`body`)
+    let elements = source.querySelectorAll(UI_SELECTOR);
+
+    // import each module as a webpack chunk
+    elements.forEach((el) => {
+      const { initialized, ui } = el.dataset;
+
+      // stop here if already initialized
+      if (initialized === `true`) return;
+
+      // // set element initialized
+      el.dataset.initialized = true
+
+      import(`@ui/${ui}/`)
+        .then((module) => {
+          const { instance, emitter } = module.default;
+          const { name } = typeof instance === `object` ? instance : null;
+
+          // return if UI already loaded
+          if (this._ui[name]) return;
+
+          // push instance to all UI
+          if (instance && name) this._ui[name] = instance;
+
+          // init attached instance
+          if (autoinit && typeof instance.init === `function`) instance.init();
+        })
+        .catch((e) => {
+          console.error("Error loading UI :", e);
+        });
+    });
+
+    return typeof resolve === `function` ? resolve() : true
+
   }
 
 }

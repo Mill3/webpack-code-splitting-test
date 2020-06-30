@@ -1,7 +1,9 @@
 import barba from "@barba/core";
 import BarbaWebpackChunks from './plugins/barba.webpack-chunks'
+import { before } from "lodash";
 
-import { TRANSITION_SPEED } from './constants'
+// all UI elements
+// import {  }
 
 const BarbaWebpackChunksInstance = new BarbaWebpackChunks()
 barba.use(BarbaWebpackChunksInstance)
@@ -13,6 +15,9 @@ barba.init({
   transitions: [
     {
       name: "default-transition",
-    }
+      leave: (data) => {
+        console.log(BarbaWebpackChunksInstance._modules);
+      }
+    },
   ],
 });

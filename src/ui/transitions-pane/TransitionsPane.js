@@ -11,7 +11,7 @@ import {
   TRANSITION_ENTER_DELAY,
 } from "../../constants";
 
-const SELECTOR = `[data-module="transitions-pane"]`;
+const SELECTOR = `[data-ui="transitions-pane"]`;
 
 class TransitionsPane {
   constructor() {
@@ -35,10 +35,7 @@ class TransitionsPane {
       opacity: [1, 0],
       duration: TRANSITION_INITIAL_DURATION,
       delay: TRANSITION_INITIAL_DELAY,
-      easing: "linear",
-      complete: () => {
-        console.log(`initial state done`);
-      },
+      easing: "linear"
     });
   }
 
