@@ -78,8 +78,8 @@ import('modules/sliders/index.js')
 Placer dans un répertoire unique chaque module, un fichier index.js qui va créer un object ```instance``` du module et l'exporter comme default
 
 ```js
-// modules/sliders/index.js
-import FoobarClass from './Foobar'
+// @modules/foo/index.js
+import FoobarClass from './FoobarClass'
 
 export const instance = new FoobarClass()
 
@@ -98,7 +98,8 @@ Ensuite, dans le fichier incluant la Class, qui doit inclure :
 
 
 ```js
-import './foobar.style.css'
+// @modules/foo/FoobarClass.js
+import './Foobar.style.scss'
 
 const SELECTOR = `[data-module="foo"]`
 
@@ -129,4 +130,13 @@ class FoobarClass {
 }
 
 export default FoobarClass
+```
+
+Le(s) fichiers CSS/SASS associés à un module sont dans le même dossier.
+
+```css
+/* @modules/foo/Foo.style.scss */
+[data-module="foo"] {
+  font-size: 4rem;
+}
 ```
