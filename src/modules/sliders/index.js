@@ -1,17 +1,6 @@
-import imagesLoaded from 'imagesloaded'
-import Flickity from 'flickity'
-import './sliders.style.css'
+import Sliders from './Sliders'
 
-export const SELECTOR = `[data-module="sliders"]`
+export const instance = new Sliders()
+export const emitter = instance.emitter
 
-export default () => {
-  console.log(`init all sliders`);
-  document.querySelectorAll(SELECTOR).forEach(el => {
-    imagesLoaded(el, () => {
-      console.log(`image loaded for`, el);
-      new Flickity(el, {
-        adaptiveHeight: true
-      })
-    })
-  })
-}
+export default { instance, emitter }

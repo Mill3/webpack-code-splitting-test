@@ -1,44 +1,18 @@
-import barba from '@barba/core';
+import barba from "@barba/core";
+import BarbaWebpackChunks from './plugins/barba.webpack-chunks'
 
-const SELECTOR = `[data-module]`
+import { TRANSITION_SPEED } from './constants'
 
-const initModules = (source) => {
-  let modules = [...source.querySelectorAll(SELECTOR)].map(el => el.dataset.module)
+const BarbaWebpackChunksInstance = new BarbaWebpackChunks()
+barba.use(BarbaWebpackChunksInstance)
 
-  modules.forEach(name => {
-    import(`./modules/${name}/`).then(module => {
-      const init = module.default
-      if (typeof init === `function`) init()
-    }).catch(e => {
-      console.error('Error loading module :', e)
-    })
-  })
-
-}
+export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 barba.init({
-  transitions: [{
-    name: 'default-transition',
-    leave() {
-      // create your stunning leave animation here
-      console.log(`leave`);
-    },
-    enter() {
-      // create your amazing enter animation here
-      console.log(`enter`);
-    },
-    after({ next }) {
-      var parser = new DOMParser();
-      let source = parser.parseFromString(next.html, "text/html");
-      let classNames = source.querySelector("body").classList;
-
-      initModules(source)
-
-      // apply new classList to body
-      document.body.classList = classNames;
+  debug: true,
+  transitions: [
+    {
+      name: "default-transition",
     }
-  }]
+  ],
 });
-
-let body = document.querySelector(`body`)
-initModules(body)

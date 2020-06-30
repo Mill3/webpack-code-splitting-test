@@ -1,7 +1,5 @@
-import _ from "lodash"
-import moduleB from '../../module-b'
+import Quotes from './quotes'
 
-export default () => {
-  console.log(`should init quotes`);
-  moduleB()
-}
+export const instance = new Quotes()
+
+export default { instance }
