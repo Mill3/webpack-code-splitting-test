@@ -41,6 +41,38 @@ elements.forEach((el) => {
 });
 ```
 
+Source html :
+
+```html
+
+<body data-barba="wrapper">
+
+  <!-- init() invoke 1 seule fois -->
+  <header data-module="transitions-pane"></header>
+
+  <main data-barba="container" data-barba-namespace="home">
+
+    <!-- init() invoke à chaque changement de cette page -->
+    <h4 data-module="foo">Should init FooBar module</h4>
+
+    <!-- init() invoke à chaque changement de cette page -->
+    <section data-module="sliders">
+      <img src="image-1.jpg" alt="image 1">
+      <img src="image-2.jpg" alt="image 2">
+    </section>
+    ...
+```
+
+Dans ce cas, le chunk loader ci-haut fera 3 imports & ```init()```, par contre le premier est à l'extérieur du ```data-barba="container"```, donc pas de destroy() entre les changements de page, un invoke ```init()``` unique.
+
+```js
+// has no destroy() method
+import('modules/transitions-pane/index.js')
+// has destroy() methods
+import('modules/foo/index.js')
+import('modules/sliders/index.js')
+```
+
 ## Anatomie d'un module
 
 Placer dans un répertoire unique chaque module, un fichier index.js qui va créer un object ```instance``` du module et l'exporter comme default
@@ -62,7 +94,7 @@ Ensuite, dans le fichier incluant la Class, qui doit inclure :
   * si non présente, l'instance ne sera pas auto-init au changement de page
 * method ```destroy()```
   * si non présente, l'instance ne sera pas détruite au changement de page
-* Finalement invoquer via une balise ```<div data-module="my-name"></div>``` qui doit être exactgement la valeur du dossier parent qui  contient le module, c'est cette valeur que webpack match avec ```import(@modules/my-name)```
+* Finalement invoquer via une balise ```<div data-module="my-name"></div>``` qui doit être exactement la valeur du dossier parent qui  contient ce module, c'est cette valeur que webpack match au moment du ```import(@modules/my-name)```
 
 
 ```js

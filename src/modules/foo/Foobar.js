@@ -8,7 +8,7 @@ class FoobarClass {
     this._defaultBoolean = defaultBoolean;
     this._objects = [];
     this.el = null;
-    this.emitter = new Emitter()
+    // this.emitter = new Emitter()
   }
 
   // should return this class instance name
