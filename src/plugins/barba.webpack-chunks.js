@@ -10,8 +10,6 @@
  * @preferred
  */
 
-import _ from "lodash";
-
 const VERSION = `0.0.1`;
 
 const MODULES_SELECTOR = `[data-module]`;
