@@ -4,6 +4,7 @@
 * Au chargement d'une page, on parse la source HTML, trouver les ```data-module="my-module"```, load module, call ```init()```, on skip si le module est déjà présent dans ```modules```
 * si le module à une méthode destroy(), on l’invoke avant de passer à la page suivante, ensuite on le retire de ```modules```
 * Les modules en dehors du ```barba-container``` ne sont pas initialisé à nouveau, donc ne pas inclure de méthode ```destroy()``` sur ces modules pour les garder en instance unique entre les pages
+* Les modules en chunk JS et CSS sont chargé et caché dans le ```<head>``` sur demande dès qu'un module est invoké la première fois, Webpack gère ensuite automatiquement les imports déjà présent dans le ```<head>``` si invoké à nouveau, permettant ainsi un app.bundle de base plus petit
 
 ## Exemple d'un chunk loader
 
