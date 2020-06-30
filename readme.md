@@ -57,10 +57,10 @@ export default { instance }
 Ensuite, dans le fichier incluant la Class, qui doit inclure :
 
 * Constructor avec ses defaults
-* une static method get name()
-* method init()
+* une static method ```get name()```
+* method ```init()```
   * si non présente, l'instance ne sera pas auto-init au changement de page
-* method destroy()
+* method ```destroy()```
   * si non présente, l'instance ne sera pas détruite au changement de page
 * Finalement invoquer via une balise ```<div data-module="my-name"></div>``` qui doit être exactgement la valeur du dossier parent qui  contient le module, c'est cette valeur que webpack match avec ```import(@modules/my-name)```
 
