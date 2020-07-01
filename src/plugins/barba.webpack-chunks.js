@@ -49,33 +49,23 @@ export class WebpackChunks {
    * Plugin installation.
    */
   init() {
-    // on initial load
+    // get initial source
     const source = document.querySelector(`body`)
 
     // UI elements are loaded once and not destroyed
     this._importUI(source, null, true)
 
-    // Modules are loaded on each page change
+    // Import all module for first page
     this._importModules(source, null, true);
 
-    // DEBUG
-    this.barba.hooks.before(() => {
-      console.time(`transition-starts`);
-    });
-
-    // afterLeave and initial, parse and load modules
+    // afterLeave, new page is ready, parse and load modules
     this.barba.hooks.beforeEnter(this._beforeEnter, this);
 
+    // prev page is gone, init all module
     this.barba.hooks.after(this._after, this);
 
     // when leaving
     this.barba.hooks.beforeLeave(this._beforeLeave, this);
-
-    // DEBUG
-    this.barba.hooks.after(() => {
-      console.timeEnd(`transition-starts`);
-    });
-
   }
 
 
@@ -85,14 +75,10 @@ export class WebpackChunks {
   _beforeLeave() {
     // Remove and destroy all module with a destroy() func
     Object.keys(this._modules).forEach((m) => {
-      if (typeof this._modules[m].destroy === `function`) {
-        this._modules[m].destroy();
-        delete this._modules[m]
-      }
+      if (typeof this._modules[m].destroy !== `function`) return
+      this._modules[m].destroy();
+      delete this._modules[m]
     });
-
-    // empty all
-    // this._emitters = [];
   }
 
   /**
@@ -106,6 +92,9 @@ export class WebpackChunks {
   }
 
 
+  /**
+   * `after` hook.
+   */
   _after() {
     Object.keys(this._modules).forEach((m) => {
       if (typeof this._modules[m].init === `function`) {

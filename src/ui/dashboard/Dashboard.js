@@ -1,3 +1,5 @@
+import barba from "@barba/core";
+
 const SELECTOR = `[data-ui="dashboard"]`;
 const CLASSNAME_OPEN = `--open`
 
@@ -22,6 +24,8 @@ class Dashboard {
   }
 
   _registerEvents() {
+    barba.hooks.leave(() => this._close());
+
     if(!this.emitter) return
     this.emitter.on('Dashboard.toggle', this._toggle)
   }
@@ -29,6 +33,10 @@ class Dashboard {
   _toggle() {
     console.log(`should close or open dashboard`);
     this.el.classList.toggle(CLASSNAME_OPEN)
+  }
+
+  _close() {
+    this.el.classList.remove(CLASSNAME_OPEN)
   }
 
 }

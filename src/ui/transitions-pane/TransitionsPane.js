@@ -1,6 +1,5 @@
 import barba from "@barba/core";
 import anime from "animejs";
-// import("./transitions-pane.style.scss");
 
 import {
   TRANSITION_INITIAL_DURATION,
