@@ -25,7 +25,7 @@ barba.init({
     {
       name: "default-transition",
       leave: (data) => {
-        console.log(BarbaWebpackChunksInstance._modules);
+        // console.log(BarbaWebpackChunksInstance._modules);
       }
     },
   ],

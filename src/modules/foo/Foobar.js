@@ -1,5 +1,4 @@
 import './foobar.style.css'
-import Emitter from 'component-emitter'
 
 const SELECTOR = `[data-module="foo"]`
 
@@ -9,8 +8,7 @@ class FoobarClass {
     this._defaultBoolean = defaultBoolean;
     this._objects = [];
     this.el = null;
-    this.emitter = new Emitter()
-
+    this._dummy = this._dummy.bind(this)
   }
 
   // should return this class instance name
@@ -26,14 +24,7 @@ class FoobarClass {
 
   _registerEvents() {
     if(!this.emitter) return
-
-    this.emitter.on('foo.foo', (value1, value2) => {
-      console.log('from FoobarClass :', value1, value2)
-    })
-
-    this.emitter.on('bar', () => {
-      console.log('bar called')
-    })
+    this.emitter.on('Foobar.dummy', this._dummy)
   }
 
   destroy() {
@@ -41,9 +32,11 @@ class FoobarClass {
     this.el = null;
 
     if(!this.emitter) return
+    this.emitter.off('Foobar.dummy', this._dummy)
+  }
 
-    // this.emitter.removeListener('foo.foo')
-    // this.emitter.removeListener('bar')
+  _dummy() {
+    console.log(`someone just called me!`)
   }
 
 }

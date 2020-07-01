@@ -159,7 +159,7 @@ export class WebpackChunks {
       // stop here if already initialized
       if (initialized === `true`) return;
 
-      // // set element initialized
+      // set element initialized
       el.dataset.initialized = true
 
       import(`@ui/${ui}/`)

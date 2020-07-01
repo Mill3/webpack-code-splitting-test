@@ -17,6 +17,10 @@ class Sliders {
 
   init() {
     console.log(`Init ${this.name}`);
+
+    // register events on global Emitter
+    this._registerEvents()
+
     document.querySelectorAll(SELECTOR).forEach((el) => {
       imagesLoaded(el, () => {
         const s = new Flickity(el, {
@@ -26,9 +30,6 @@ class Sliders {
         this.sliders.push(s)
       });
     });
-
-    // register events on global Emitter
-    this._registerEvents()
   }
 
   destroy() {

@@ -27,7 +27,8 @@ class SiteNav {
 
   _clickA() {
     // do something with sliders
-    this.emitter.emit('Sliders.reload')
+    this.emitter.emit('Sliders.reload');
+    this.emitter.emit('Foobar.dummy');
   }
 
   _clickB() {
