@@ -1,43 +1,37 @@
 <%- include('head'); -%>
 
-<body data-barba="wrapper">
+<main data-barba="container" data-barba-namespace="home">
 
-  <main data-barba="container" data-barba-namespace="home">
+  <h1><%= title %></h1>
 
-    <%- include('nav'); -%>
+  <section data-module="sliders">
+    <img src="https://images.unsplash.com/photo-1593145134471-e91fe115022e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80" alt="image 1">
+    <img src="https://images.unsplash.com/photo-1593154586930-136210f7b84f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80" alt="image 2">
+  </section>
 
-    <h1><%= title %></h1>
+  <section>
+    <h2>This is content</h2>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, possimus ducimus suscipit accusamus itaque, officiis inventore unde voluptatem, minima facere quo. Qui voluptas veniam minus voluptatibus odit culpa amet odio. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid soluta facilis esse enim quia eaque praesentium? Perspiciatis sint, repellendus quod dignissimos quas, sapiente dolores sit magni asperiores facere reprehenderit voluptates.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, possimus ducimus suscipit accusamus itaque, officiis inventore unde voluptatem, minima facere quo. Qui voluptas veniam minus voluptatibus odit culpa amet odio. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid soluta facilis esse enim quia eaque praesentium? Perspiciatis sint, repellendus quod dignissimos quas, sapiente dolores sit magni asperiores facere reprehenderit voluptates.
+    </p>
+    <h2>Big title</h2>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, possimus ducimus suscipit accusamus itaque, officiis inventore unde voluptatem, minima facere quo. Qui voluptas veniam minus voluptatibus odit culpa amet odio. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid soluta facilis esse enim quia eaque praesentium? Perspiciatis sint, repellendus quod dignissimos quas, sapiente dolores sit magni asperiores facere reprehenderit voluptates.
+    </p>
+  </section>
 
-    <section data-module="sliders">
-      <img src="https://images.unsplash.com/photo-1593145134471-e91fe115022e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80" alt="image 1">
-      <img src="https://images.unsplash.com/photo-1593154586930-136210f7b84f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80" alt="image 2">
-    </section>
+  <section data-module="sliders">
+    <img loading=lazy src="https://images.unsplash.com/photo-1552238979-402eb7a9258c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="image 1">
+    <img loading=lazy src="https://images.unsplash.com/photo-1592500473325-a1d541345e45?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="image 2">
+    <img loading=lazy src="https://images.unsplash.com/photo-1469366379702-59bb9f45c11e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80" alt="image 2">
+    <img loading=lazy src="https://images.unsplash.com/photo-1541688672027-2c8e9a90133b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80" alt="image 2">
+  </section>
 
-    <section>
-      <h2>This is content</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, possimus ducimus suscipit accusamus itaque, officiis inventore unde voluptatem, minima facere quo. Qui voluptas veniam minus voluptatibus odit culpa amet odio. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid soluta facilis esse enim quia eaque praesentium? Perspiciatis sint, repellendus quod dignissimos quas, sapiente dolores sit magni asperiores facere reprehenderit voluptates.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, possimus ducimus suscipit accusamus itaque, officiis inventore unde voluptatem, minima facere quo. Qui voluptas veniam minus voluptatibus odit culpa amet odio. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid soluta facilis esse enim quia eaque praesentium? Perspiciatis sint, repellendus quod dignissimos quas, sapiente dolores sit magni asperiores facere reprehenderit voluptates.
-      </p>
-      <h2>Big title</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, possimus ducimus suscipit accusamus itaque, officiis inventore unde voluptatem, minima facere quo. Qui voluptas veniam minus voluptatibus odit culpa amet odio. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid soluta facilis esse enim quia eaque praesentium? Perspiciatis sint, repellendus quod dignissimos quas, sapiente dolores sit magni asperiores facere reprehenderit voluptates.
-      </p>
-    </section>
+  <!-- <section data-module="Quotes">should load quotes modules</section> -->
 
-    <section data-module="sliders">
-      <img loading=lazy src="https://images.unsplash.com/photo-1552238979-402eb7a9258c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="image 1">
-      <img loading=lazy src="https://images.unsplash.com/photo-1592500473325-a1d541345e45?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="image 2">
-      <img loading=lazy src="https://images.unsplash.com/photo-1469366379702-59bb9f45c11e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80" alt="image 2">
-      <img loading=lazy src="https://images.unsplash.com/photo-1541688672027-2c8e9a90133b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80" alt="image 2">
-    </section>
+</main>
 
-    <!-- <section data-module="Quotes">should load quotes modules</section> -->
-
-  </main>
-
-</body>
-
-</html>
+<%- include('footer'); -%>

@@ -1,33 +1,16 @@
 <%- include('head'); -%>
 
-<body data-barba="wrapper">
+<main data-barba="container" data-barba-namespace="home">
 
-  <main data-barba="container" data-barba-namespace="home">
+  <h1><%= title %></h1>
 
-    <%- include('nav'); -%>
+  <h4 data-module="foo">Should init FooBar module</h4>
 
-    <h1><%= title %></h1>
+  <section data-module="sliders">
+    <img src="https://images.unsplash.com/photo-1593145134471-e91fe115022e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80" alt="image 1">
+    <img src="https://images.unsplash.com/photo-1593154586930-136210f7b84f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80" alt="image 2">
+  </section>
 
-    <h4 data-module="foo">Should init FooBar module</h4>
-<!--
-    <section data-module="sliders">
-      <img src="https://images.unsplash.com/photo-1552238979-402eb7a9258c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="image 1">
-      <img src="https://images.unsplash.com/photo-1592500473325-a1d541345e45?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="image 2">
-      <img src="https://images.unsplash.com/photo-1469366379702-59bb9f45c11e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80" alt="image 2">
-      <img src="https://images.unsplash.com/photo-1541688672027-2c8e9a90133b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80" alt="image 2">
-    </section>
+</main>
 
-    <hr />
-
-    <section data-module="sliders">
-      <img loading=lazy src="https://images.unsplash.com/photo-1552238979-402eb7a9258c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="image 1">
-      <img loading=lazy src="https://images.unsplash.com/photo-1592500473325-a1d541345e45?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="image 2">
-      <img loading=lazy src="https://images.unsplash.com/photo-1469366379702-59bb9f45c11e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80" alt="image 2">
-      <img loading=lazy src="https://images.unsplash.com/photo-1541688672027-2c8e9a90133b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80" alt="image 2">
-    </section> -->
-
-  </main>
-
-</body>
-
-</html>
+<%- include('footer'); -%>

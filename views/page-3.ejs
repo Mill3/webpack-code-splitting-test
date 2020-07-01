@@ -1,21 +1,15 @@
 <%- include('head'); -%>
 
-<body data-barba="wrapper">
+<main data-barba="container" data-barba-namespace="home">
 
-  <main data-barba="container" data-barba-namespace="home">
+  <h1><%= title %></h1>
 
-    <%- include('nav'); -%>
+  <p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/Q2aaCDNjWEg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </p>
 
-    <h1><%= title %></h1>
+  <section data-module="quotes"></section>
 
-    <p>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/Q2aaCDNjWEg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </p>
+</main>
 
-    <section data-module="quotes"></section>
-
-  </main>
-
-</body>
-
-</html>
+<%- include('footer'); -%>

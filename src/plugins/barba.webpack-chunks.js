@@ -10,6 +10,8 @@
  * @preferred
  */
 
+import EventEmitter2 from 'eventemitter2'
+
 const VERSION = `0.0.1`;
 
 const MODULES_SELECTOR = `[data-module]`;
@@ -25,7 +27,7 @@ export class WebpackChunks {
     this._parser;
     this._modules = [];
     this._ui = [];
-    this._emitters = [];
+    this._emitter = null;
   }
 
   /**
@@ -38,6 +40,9 @@ export class WebpackChunks {
     this.barba = barba;
 
     this._parser = new DOMParser();
+    this._emitter = new EventEmitter2({
+      wildcard: true,
+    })
   }
 
   /**
@@ -136,11 +141,8 @@ export class WebpackChunks {
           // push instance to all modules
           if (instance && name) this._modules[name] = instance;
 
-          // TODO: handles emitters
-          // push emitter
-          // if(emitter && name) this._emitters[name] = emitter
-          // attach all emitters to instance
-          // instance.invokeEmitter = this._invokeEmitter.bind(this._invokeEmitter)
+          // attach emitter to instance
+          instance.emitter = this._emitter
 
           // init attached instance
           if (autoinit && typeof instance.init === `function`) instance.init();
@@ -181,6 +183,9 @@ export class WebpackChunks {
 
           // push instance to all UI
           if (instance && name) this._ui[name] = instance;
+
+          // attach emitter to instance
+          instance.emitter = this._emitter
 
           // init attached instance
           if (autoinit && typeof instance.init === `function`) instance.init();
