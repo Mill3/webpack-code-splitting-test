@@ -169,23 +169,30 @@ Chaque module reçoit le même emitter global, à partir duquel il pourra attach
 \\ app.js
 
 const emitter = new EventEmitter2()
-
+const FoobarClassInstance = new FoobarClass()
 FoobarClassInstance.emitter = emitter
+
 ```
 
 Ensuite dans la class
 
 ```js
+// @modules/foo/FoobarClass.js
 _registerEvents() {
   if(!this.emitter) return
   this.emitter.once('Foobar.dummy', this._dummy)
 }
+
+_dummy() {
+  console.log(`Act Act !`)
+}
+
 ```
 
 Finalement dans un autre module :
 
 ```js
-
-button.addEventListener(`click`, this.emitter.emit('Foobar.dummy'))
+// @modules/site-nav/SiteNav.js
+button.addEventListener(`mouseenter`, this.emitter.emit('Foobar.dummy'))
 
 ```
