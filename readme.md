@@ -161,9 +161,11 @@ Le(s) fichiers CSS/SASS associés à un module sont dans le même dossier.
 
 Un traversal système est souvent nécessaire pour permettre un ou plusieurs module de communiquer entre eux.
 
-Exemple type, module ```SiteNav.js``` et ```MegaMenu.js```, les élément du menu doivent ouvrir le mega menu en ```:hover```, donc envoyer un event ```Emitter.emit("MegaMenu.open")```.
+Exemple type, module ```SiteNav.js``` et ```MegaMenu.js```, les éléments du menu doivent ouvrir le MenuMenu en ```:hover```, donc envoyer un event ```Emitter.emit("MegaMenu.open")```.
 
-Chaque module reçoit le même emitter global, à partir duquel il pourra attacher des events.
+Chaque module reçoit le même ```EventEmitter2``` global, à partir duquel il pourra attacher des events.
+
+https://www.npmjs.com/package/eventemitter2
 
 ```js
 \\ app.js
