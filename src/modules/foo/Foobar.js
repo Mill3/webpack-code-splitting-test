@@ -24,7 +24,7 @@ class FoobarClass {
 
   _registerEvents() {
     if(!this.emitter) return
-    this.emitter.on('Foobar.dummy', this._dummy)
+    this.emitter.once('Foobar.dummy', this._dummy)
   }
 
   destroy() {
@@ -36,7 +36,7 @@ class FoobarClass {
   }
 
   _dummy() {
-    console.log(`someone just called me!`)
+    console.log(`Someone just called me, only once!`)
   }
 
 }
