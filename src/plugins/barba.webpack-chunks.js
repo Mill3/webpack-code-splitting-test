@@ -47,10 +47,10 @@ export class WebpackChunks {
 
     // Application State example
     this._state = {
-      status: `initial`,
+      initial: true,
       count: 0,
       changeStatus: (value) => {
-        this._state.status = value
+        this._state.initial = value
       },
       increment: () => {
         this._state.count++
@@ -62,15 +62,6 @@ export class WebpackChunks {
    * Plugin installation.
    */
   init() {
-    // get initial source
-    const source = document.querySelector(`body`)
-
-    // UI elements are loaded once and not destroyed
-    this._importUI(source, null, true)
-
-    // Import all module for first page
-    this._importModules(source, null, true);
-
     // afterLeave, new page is ready, parse and load modules
     this.barba.hooks.beforeEnter(this._beforeEnter, this);
 
@@ -100,12 +91,20 @@ export class WebpackChunks {
   _beforeEnter({ next }) {
     return new Promise((resolve) => {
       let source = this._parser.parseFromString(next.html, "text/html");
-      return this._importModules(source, resolve);
+      const { initial } = this._state
+      this._importModules(source, initial);
+      this._importUI(source, initial);
+
+      if(initial) {
+        this._state.changeStatus(false)
+      }
+
+      return resolve()
     });
   }
 
   /**
-   * `after` hook.
+   * `after` hook, init() all modules only
    */
   _after() {
     Object.keys(this._modules).forEach((m) => {
@@ -118,7 +117,7 @@ export class WebpackChunks {
    /**
    * the module importer, look for data-module entries in DOM source
    */
-  _importModules(source, resolve, autoinit = false) {
+  _importModules(source, autoinit = false) {
     let elements = source.querySelectorAll(MODULES_SELECTOR);
 
     // import each module as a webpack chunk
@@ -155,16 +154,12 @@ export class WebpackChunks {
           console.error("Error loading module :", e);
         });
     });
-
-    // resolve when all modules are imported
-    return typeof resolve === `function` ? resolve() : true
   }
 
   /**
    * the module importer, look for data-module entries in DOM source
    */
-  _importUI(source, resolve, autoinit = true) {
-    // let source = document.querySelector(`body`)
+  _importUI(source, autoinit = true) {
     let elements = source.querySelectorAll(UI_SELECTOR);
 
     // import each module as a webpack chunk
@@ -201,8 +196,6 @@ export class WebpackChunks {
           console.error("Error loading UI :", e);
         });
     });
-
-    return typeof resolve === `function` ? resolve() : true
 
   }
 

@@ -21,6 +21,7 @@ class Sliders {
     // register events on global Emitter
     this._registerEvents()
 
+    //
     document.querySelectorAll(SELECTOR).forEach((el) => {
       imagesLoaded(el, () => {
         const s = new Flickity(el, {

@@ -20,7 +20,6 @@ class FoobarClass {
   }
 
   init () {
-    console.log(this.state);
     this._objects = ['foo', 'bar'];
     this.el = document.querySelector(SELECTOR)
     this._registerEvents()
@@ -43,7 +42,6 @@ class FoobarClass {
     console.log(`Someone just called me!`)
     this.state.changeStatus(`Changed state.status for : ${new Date()}`)
     this.state.increment()
-    console.log(this.state);
   }
 
 }
