@@ -3,6 +3,7 @@ export const SELECTOR = `[data-module="quotes"]`;
 
 class Quotes {
   constructor() {
+    this._onSliderChange = this._onSliderChange.bind(this)
   }
 
   // should return this class instance name
@@ -16,10 +17,21 @@ class Quotes {
     let img = document.createElement('img')
     img.src = image
     target.appendChild(img)
+    this._registerEvents()
+  }
+
+  _registerEvents() {
+    if(!this.emitter) return
+    this.emitter.on('Sliders.change', this._onSliderChange)
   }
 
   destroy() {
     console.log(`Destroy ${this.name}`);
+    this.emitter.off('Sliders.change', this._onSliderChange)
+  }
+
+  _onSliderChange() {
+    console.log(`slider have change, act act in ${this.name} module`);
   }
 
 }

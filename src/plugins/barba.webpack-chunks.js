@@ -90,14 +90,16 @@ export class WebpackChunks {
    */
   _beforeEnter({ next }) {
     return new Promise((resolve) => {
-      let source = this._parser.parseFromString(next.html, "text/html");
       const { initial } = this._state
-      this._importModules(source, initial);
-      this._importUI(source, initial);
+      const source = this._parser.parseFromString(next.html, "text/html");
 
-      if(initial) {
-        this._state.changeStatus(false)
-      }
+      this._importModules(source);
+
+      // import UI only on intial load
+      if(initial) this._importUI(source);
+
+      // set initial state to false
+      if(initial) this._state.changeStatus(false)
 
       return resolve()
     });
@@ -107,11 +109,11 @@ export class WebpackChunks {
    * `after` hook, init() all modules only
    */
   _after() {
-    Object.keys(this._modules).forEach((m) => {
-      if (typeof this._modules[m].init === `function`) {
-        this._modules[m].init();
-      }
-    });
+    // Object.keys(this._modules).forEach((m) => {
+    //   if (typeof this._modules[m].init === `function`) {
+    //     this._modules[m].init();
+    //   }
+    // });
   }
 
    /**
@@ -132,7 +134,7 @@ export class WebpackChunks {
 
       import(`@modules/${module}/`)
         .then((module) => {
-          const { instance, emitter } = module.default;
+          const { instance } = module.default;
           const { name } = typeof instance === `object` ? instance : null;
 
           // return if module already loaded
@@ -148,7 +150,7 @@ export class WebpackChunks {
           instance.state = this._state
 
           // init attached instance
-          if (autoinit && typeof instance.init === `function`) instance.init();
+          if (typeof instance.init === `function`) instance.init();
         })
         .catch((e) => {
           console.error("Error loading module :", e);
@@ -159,7 +161,7 @@ export class WebpackChunks {
   /**
    * the module importer, look for data-module entries in DOM source
    */
-  _importUI(source, autoinit = true) {
+  _importUI(source) {
     let elements = source.querySelectorAll(UI_SELECTOR);
 
     // import each module as a webpack chunk
@@ -190,7 +192,7 @@ export class WebpackChunks {
           instance.state = this._state
 
           // init attached instance
-          if (autoinit && typeof instance.init === `function`) instance.init();
+          if (typeof instance.init === `function`) instance.init();
         })
         .catch((e) => {
           console.error("Error loading UI :", e);

@@ -4,9 +4,6 @@ const SELECTOR = `[data-module="foo"]`
 
 class FoobarClass {
 
-  // static state;
-  // static emitter;
-
   constructor(defaultBoolean = true) {
     this._defaultBoolean = defaultBoolean;
     this._objects = [];

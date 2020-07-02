@@ -27,7 +27,8 @@ class SiteNav {
 
   _clickA() {
     // do something with sliders
-    this.emitter.emit('Sliders.reload');
+    this.emitter.emit('ModuleLarge.faster');
+    this.emitter.emit('Sliders.next');
     this.emitter.emit('Foobar.dummy');
   }
 
@@ -38,6 +39,7 @@ class SiteNav {
       instance.init()
     })
 
+    // show dashboard
     this.emitter.emit('Dashboard.toggle');
   }
 

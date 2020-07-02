@@ -7,7 +7,8 @@ export const SELECTOR = `[data-module="sliders"]`;
 class Sliders {
   constructor() {
     this.sliders = []
-    this._reload = this._reload.bind(this)
+    this._next = this._next.bind(this)
+    this._change = this._change.bind(this)
   }
 
   // should return this class instance name
@@ -26,28 +27,44 @@ class Sliders {
       imagesLoaded(el, () => {
         const s = new Flickity(el, {
           adaptiveHeight: true,
-          pageDots: false
+          pageDots: false,
+          on: {
+            change: (index) =>  this.emitter.emit('Sliders.change', index)
+          }
         });
+
         this.sliders.push(s)
       });
     });
   }
 
   destroy() {
+    [...this.sliders].forEach(slider => {
+      slider.destroy()
+    })
+
+    // empty holder
     this.sliders = [];
-    this.emitter.off('Sliders.reload', this._reload)
+
+    if(!this.emitter) return
+    this.emitter.off('Sliders.next', this._next)
+    this.emitter.off('Sliders.change', this._change)
   }
 
   _registerEvents() {
     if(!this.emitter) return
-    this.emitter.on('Sliders.reload', this._reload)
+    this.emitter.on('Sliders.next', this._next)
+    this.emitter.on('Sliders.change', this._change)
   }
 
-  // dummy method acting on all sliders
-  _reload() {
+  _next() {
     [...this.sliders].forEach(slider => {
       slider.next(true)
     })
+  }
+
+  _change(index) {
+    console.log(`slide has changed to : ${index}`);
   }
 
 }
