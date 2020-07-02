@@ -28,6 +28,7 @@ export class WebpackChunks {
     this._modules = [];
     this._ui = [];
     this._emitter = null;
+    this._state = {};
   }
 
   /**
@@ -43,6 +44,18 @@ export class WebpackChunks {
     this._emitter = new EventEmitter2({
       wildcard: true,
     })
+
+    // Application State example
+    this._state = {
+      status: `initial`,
+      count: 0,
+      changeStatus: (value) => {
+        this._state.status = value
+      },
+      increment: () => {
+        this._state.count++
+      }
+    }
   }
 
   /**
@@ -91,7 +104,6 @@ export class WebpackChunks {
     });
   }
 
-
   /**
    * `after` hook.
    */
@@ -132,6 +144,9 @@ export class WebpackChunks {
 
           // attach emitter to instance
           instance.emitter = this._emitter
+
+          // attach state
+          instance.state = this._state
 
           // init attached instance
           if (autoinit && typeof instance.init === `function`) instance.init();
@@ -175,6 +190,9 @@ export class WebpackChunks {
 
           // attach emitter to instance
           instance.emitter = this._emitter
+
+          // attach state
+          instance.state = this._state
 
           // init attached instance
           if (autoinit && typeof instance.init === `function`) instance.init();

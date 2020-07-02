@@ -4,6 +4,9 @@ const SELECTOR = `[data-module="foo"]`
 
 class FoobarClass {
 
+  // static state;
+  // static emitter;
+
   constructor(defaultBoolean = true) {
     this._defaultBoolean = defaultBoolean;
     this._objects = [];
@@ -17,6 +20,7 @@ class FoobarClass {
   }
 
   init () {
+    console.log(this.state);
     this._objects = ['foo', 'bar'];
     this.el = document.querySelector(SELECTOR)
     this._registerEvents()
@@ -24,7 +28,7 @@ class FoobarClass {
 
   _registerEvents() {
     if(!this.emitter) return
-    this.emitter.once('Foobar.dummy', this._dummy)
+    this.emitter.on('Foobar.dummy', this._dummy)
   }
 
   destroy() {
@@ -36,7 +40,10 @@ class FoobarClass {
   }
 
   _dummy() {
-    console.log(`Someone just called me, only once!`)
+    console.log(`Someone just called me!`)
+    this.state.changeStatus(`Changed state.status for : ${new Date()}`)
+    this.state.increment()
+    console.log(this.state);
   }
 
 }
