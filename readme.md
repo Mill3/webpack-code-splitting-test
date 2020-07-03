@@ -17,32 +17,40 @@ const emitter = new EventEmitter2()
 elements.forEach((el) => {
   const { initialized, module } = el.dataset;
 
+  // element can cast 1 or multiple modules, each seperated by a coma
+  const modules = module.split(',')
+
   // stop here if already initialized
   if (initialized === `true`) return;
 
   // set element initialized
   el.dataset.initialized = true
 
-  import(`@modules/${module}/`)
-    .then((module) => {
-      const { instance } = module.default;
-      const { name } = typeof instance === `object` ? instance : null;
+  // try to load each module attached
+  modules.forEach(module => {
+    import(`@modules/${module}/`)
+      .then((module) => {
+        const { instance } = module.default;
+        const { name } = typeof instance === `object` ? instance : null;
 
-      // return if module already loaded
-      if (modules[name]) return;
+        // return if module already loaded
+        if (this._modules[name]) return;
 
-      // push instance to all modules
-      if (instance && name) modules[name] = instance;
+        // push instance to all modules
+        if (instance && name) this._modules[name] = instance;
 
-      // attach emitter to instance
-      instance.emitter = emitter
+        // attach emitter to instance
+        instance.emitter = this._emitter
 
-      // init attached instance
-      if (typeof instance.init === `function`) instance.init();
-    })
-    .catch((e) => {
-      console.error("Error loading module :", e);
-    });
+        // attach state
+        instance.state = this._state
+
+        // init attached instance
+        if (typeof instance.init === `function`) instance.init();
+      })
+      .catch((e) => {
+        console.error("Error loading module :", e);
+      });
 });
 ```
 
