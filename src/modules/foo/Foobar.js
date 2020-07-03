@@ -1,6 +1,6 @@
 import './foobar.style.css'
 
-const SELECTOR = `[data-module="foo"]`
+const SELECTOR = `[data-module*="foo"]`
 
 class FoobarClass {
 
@@ -17,6 +17,8 @@ class FoobarClass {
   }
 
   init () {
+    console.log(`init ${this.name}`);
+
     this._objects = ['foo', 'bar'];
     this.el = document.querySelector(SELECTOR)
     this._registerEvents()

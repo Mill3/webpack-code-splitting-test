@@ -21,6 +21,7 @@
     "animejs": "^3.2.0",
     "axios": "^0.19.2",
     "babel-loader": "^8.1.0",
+    "charming": "^3.0.2",
     "compression": "^1.7.4",
     "css-loader": "^3.6.0",
     "ejs": "^3.1.3",

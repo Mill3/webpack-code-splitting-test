@@ -2,7 +2,7 @@ import imagesLoaded from "imagesloaded";
 import Flickity from "flickity";
 import "./sliders.style.css";
 
-export const SELECTOR = `[data-module="sliders"]`;
+export const SELECTOR = `[data-module*="sliders"]`;
 
 class Sliders {
   constructor() {
@@ -24,6 +24,7 @@ class Sliders {
 
     //
     document.querySelectorAll(SELECTOR).forEach((el) => {
+      console.log('el:', el)
       imagesLoaded(el, () => {
         const s = new Flickity(el, {
           adaptiveHeight: true,

@@ -1,5 +1,6 @@
 import image from './test-image.jpg';
 export const SELECTOR = `[data-module="quotes"]`;
+import imagesLoaded from "imagesloaded";
 
 class Quotes {
   constructor() {
@@ -15,9 +16,11 @@ class Quotes {
     console.log(`Init ${this.name}`);
     let target = document.querySelector(SELECTOR)
     let img = document.createElement('img')
-    img.src = image
-    target.appendChild(img)
     this._registerEvents()
+    const imgLoad = imagesLoaded(image, () => {
+      img.src = image
+      target.appendChild(img)
+    })
   }
 
   _registerEvents() {
