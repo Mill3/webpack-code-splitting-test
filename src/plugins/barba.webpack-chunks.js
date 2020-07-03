@@ -109,11 +109,8 @@ export class WebpackChunks {
    * `after` hook, init() all modules only
    */
   _after() {
-    // Object.keys(this._modules).forEach((m) => {
-    //   if (typeof this._modules[m].init === `function`) {
-    //     this._modules[m].init();
-    //   }
-    // });
+    // console.log(this._emitter);
+    // noop
   }
 
    /**
