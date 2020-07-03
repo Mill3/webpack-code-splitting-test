@@ -57,8 +57,8 @@ Source html :
 
   <main data-barba="container" data-barba-namespace="home">
 
-    <!-- init() invoke à chaque changement de cette page -->
-    <h4 data-module="foo">Should init FooBar module</h4>
+    <!-- init() invoke à chaque changement de cette page, permet invokes de plusieurs modules -->
+    <h4 data-module="foo,typography">Should init FooBar and Typography module</h4>
 
     <!-- init() invoke à chaque changement de cette page -->
     <section data-module="sliders">

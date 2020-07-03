@@ -2,6 +2,41 @@
 
 [data-module*="typography"] {
   span {
-    border: 1px solid red;
+    // border: 1px solid red;
+  }
+  &[data-module*="visibility"] {
+    span {
+      opacity: 0;
+      display: inline-block;
+      transform: translateY(50%);
+      transition: opacity 0.5s linear, transform 0.715s;
+      &:nth-child(1) {
+        transition-delay: 0.250s;
+      }
+      &:nth-child(2) {
+        transition-delay: 0.350s;
+      }
+      &:nth-child(3) {
+        transition-delay: 0.450s;
+      }
+      &:nth-child(4) {
+        transition-delay: 0.550s;
+      }
+      &:nth-child(5) {
+        transition-delay: 0.650s;
+      }
+      &:nth-child(6) {
+        transition-delay: 0.750s;
+      }
+      &:nth-child(7) {
+        transition-delay: 0.850s;
+      }
+    }
+    &[data-visible] {
+      span {
+        opacity: 1;
+        transform: translateY(0%);
+      }
+    }
   }
 }

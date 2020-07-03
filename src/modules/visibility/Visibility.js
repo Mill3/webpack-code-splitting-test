@@ -1,4 +1,3 @@
-
 export const SELECTOR = `[data-module*="visibility"]`;
 
 class Visibility {
@@ -18,26 +17,18 @@ class Visibility {
       rootMargin: '100px',
       threshold: 0.15
     }
-
     this._observer = new IntersectionObserver(this._visible, options);
     this._elements = document.querySelectorAll(SELECTOR);
     this._elements.forEach((el) => {
       this._observer.observe(el);
     })
-
-    // window.addEventListener('scroll', () => {
-    // })
-
   }
 
   destroy() {
-
   }
 
   _visible(entries, observer) {
-    // console.log('observer:', entries, observer)
     entries.forEach(entry => {
-      // console.log('entry:', entry)
       const { target, isIntersecting, isVisible } = entry
       console.log('target, isIntersecting, isVisible:', target, isIntersecting, isVisible)
       if(isIntersecting) {
