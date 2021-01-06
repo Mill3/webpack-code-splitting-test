@@ -19,7 +19,7 @@
     "@barba/core": "^2.9.7",
     "@mill3-packages/system-ui-sass": "^0.4.9",
     "animejs": "^3.2.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-loader": "^8.1.0",
     "charming": "^3.0.2",
     "compression": "^1.7.4",
